@@ -1,0 +1,212 @@
+.wrapper {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    max-height: 70px;
+    z-index: 100;
+}
+
+.barR {
+    position: absolute;
+    z-index: 0;
+    right: 0;
+    bottom: 0px;
+    width: 330px;
+    border-bottom: none;
+    border-left: 1px solid var(--border-primary);
+    height: 100vh;
+    &.hasPlayer{
+        height: calc(100vh - 90px);
+        bottom: 90px;
+    }
+}
+
+.br {
+    &__container {
+        display: block;
+        height: 100%;
+        position: relative;
+    }
+
+    &__header {
+        padding: 14px 8px;
+        position: relative;
+        z-index: 1000000;
+    }
+
+    &__scroll {
+        position: relative;
+        height: calc(100% - 70px);
+        overflow-y: auto;
+        padding-top: 15px;
+
+        &::-webkit-scrollbar {
+            width: 4px;
+            border-radius: 2px;
+        }
+
+        /* Track */
+        &::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        /* Handle */
+        &::-webkit-scrollbar-thumb {
+            background: hsla(0, 0%, 100%, 0.3);
+            border-radius: 2px;
+        }
+    }
+
+    &__hflex {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+    &__htab {
+        display: flex;
+        flex-grow: 1;
+        border-radius: 999px;
+        background-color: var(--alpha-bg);
+        padding: 3px;
+    }
+
+    &__htitem {
+        border-radius: 999px;
+        padding: 5px 0;
+        cursor: pointer;
+        color: var(--navigation-text);
+        flex-grow: 1;
+        font-size: 12px;
+        text-align: center;
+
+        &.active {
+            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, .07);
+            background-color: var(--tab-active-bg);
+            color: var(--text-item-hover);
+        }
+    }
+
+    &__hsBtn {
+        font-size: 14px;
+        border-radius: 999px;
+        line-height: normal;
+        border: 0;
+        display: inline-block;
+        font-weight: 400;
+        text-transform: none;
+        text-align: center;
+        cursor: pointer;
+        position: relative;
+        color: var(--text-primary);
+        background-color: var(--alpha-bg);
+        font-size: 16px;
+        padding: 8px;
+        width: 36px;
+        height: 36px;
+    }
+}
+
+
+
+.brc {
+    &__wraper {
+        padding: 0 8px 15px;
+    }
+
+    &__emptyBox {
+        margin-top: 30px;
+        text-align: center;
+        padding: 0 20px;
+
+        .text {
+            font-size: 14px;
+            line-height: 1.58;
+            margin: 6px 0 20px;
+        }
+
+        .btn {
+            font-size: 14px;
+            padding: 7px 26px;
+            align-items: center;
+            background-color: var(--purple-primary);
+            border-color: var(--purple-primary);
+            color: var(--white);
+            font-size: 14px;
+            border-radius: 999px;
+            line-height: normal;
+            border: 0;
+            display: inline-block;
+            font-weight: 400;
+            text-transform: none;
+            text-align: center;
+            cursor: pointer;
+            position: relative;
+            display: flex;
+            gap: 8px;
+            justify-content: center;
+        }
+    }
+
+    &__hidden {
+        display: none;
+    }
+}
+
+.stb {
+    &__menu {
+        background-color: #34224f;
+        border-radius: 8px;
+        position: absolute;
+        box-shadow: 0 0 5px 0 rgba(0, 0, 0, .2);
+        width: 240px;
+        z-index: 101;
+        top: 40px;
+        right: 0;
+    }
+
+    &__list {
+        padding: 10px 0;
+    }
+
+    &__item {
+        padding: 10px 15px;
+        display: flex;
+        align-items: center;
+        border-radius: 4px;
+        padding: 12px 10px;
+        height: 44px;
+        display: flex;
+        align-items: center;
+        width: 100%;
+        cursor: pointer;
+        color: inherit;
+
+        &:hover {
+            background-color: var(--alpha-bg);
+            color: var(--text-item-hover);
+        }
+
+        .iconRight {
+            margin-left: auto;
+            width: 16px;
+            display: flex;
+
+            i {
+                width: 20px;
+            }
+
+            svg {
+                width: 20px;
+                height: 20px;
+            }
+        }
+
+        i {
+            width: 16px;
+            margin-right: 12px;
+            font-size: 16px;
+        }
+    }
+
+}

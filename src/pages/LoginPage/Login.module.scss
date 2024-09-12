@@ -1,0 +1,127 @@
+.wrapper {
+    background-image: url(../../assets/images/bg-login.jpg);
+    height: 100vh;
+    background-size: cover;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 0;
+    position: relative;
+}
+
+.lgcontainer {
+    text-align: center;
+    width: 50%;
+    margin: 0 auto;
+}
+
+.heading {
+    font-size: 28px;
+    color: #fff;
+}
+
+.des {
+    color: #fff;
+    margin: 10px 0 40px;
+}
+
+.group {
+    margin-bottom: 1rem;
+    position: relative;
+
+    input {
+        background: transparent;
+        border: none;
+        height: 50px;
+        color: white !important;
+        border: 1px solid transparent;
+        background: rgba(255, 255, 255, 0.08);
+        border-radius: 40px;
+        padding-left: 20px;
+        padding-right: 20px;
+        -webkit-transition: 0.3s;
+        -o-transition: 0.3s;
+        transition: 0.3s;
+        display: block;
+        width: 100%;
+        font-size: 1rem;
+        font-weight: 400;
+        line-height: 1.5;
+        text-align: left;
+
+        &::placeholder {
+            color: #fff;
+            opacity: 1;
+        }
+    }
+}
+
+.button {
+    background: #fbceb5 !important;
+    border: 1px solid #fbceb5 !important;
+    color: #000 !important;
+    font-weight: 600;
+    text-align: center;
+    width: 100%;
+    font-size: 1rem;
+    line-height: 1.5;
+    border: none;
+    height: 50px;
+    border-radius: 40px;
+    cursor: pointer;
+    text-align: center;
+}
+
+.flex {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.checkbox {
+    display: block;
+    position: relative;
+    padding-left: 25px;
+    margin-bottom: 12px;
+    cursor: pointer;
+    font-size: 16px;
+    color: #fff;
+
+    input {
+        position: absolute;
+        cursor: pointer;
+        width: auto;
+        height: auto;
+        left: 0;
+        top: 5px;
+        margin: 0;
+    }
+}
+
+.textErr {
+    display: block;
+    text-align: left;
+    margin-bottom: 20px;
+    color: red;
+}
+
+.iconLoading {
+    animation: load 2s linear 0s infinite;
+    display: inline-flex;
+    width: 15px;
+    height: 15px;
+}
+
+@keyframes load {
+    from {
+        -webkit-transform: rotate(0deg);
+        -moz-transform: rotate(0deg);
+        -o-transform: rotate(0deg);
+    }
+
+    to {
+        -webkit-transform: rotate(360deg);
+        -moz-transform: rotate(360deg);
+        -o-transform: rotate(360deg);
+    }
+}

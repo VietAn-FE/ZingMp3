@@ -1,0 +1,142 @@
+.user {
+    position: relative;
+}
+
+.avt {
+    position: relative;
+}
+
+.btn {
+    position: relative;
+    cursor: pointer;
+}
+
+.image {
+    overflow: hidden;
+    border-radius: 999px !important;
+    width: 38px;
+    height: 38px;
+}
+
+.dropdown {
+    background-color: #34224f;
+    border-radius: 8px;
+    position: absolute;
+    box-shadow: 0 0 5px 0 rgba(0, 0, 0, .2);
+    width: 240px;
+    z-index: 101;
+    top: 50px;
+    right: -2px;
+    padding: 6px;
+    width: 300px;
+    line-height: normal;
+    max-height: calc(100vh - 200px);
+    overflow-y: auto;
+
+    &::-webkit-scrollbar {
+        width: 4px;
+        border-radius: 2px;
+    }
+
+    /* Track */
+    &::-webkit-scrollbar-track {
+        background: transparent;
+    }
+
+    /* Handle */
+    &::-webkit-scrollbar-thumb {
+        background: hsla(0, 0%, 100%, 0.3);
+        border-radius: 2px;
+    }
+}
+.duser{
+    padding: 10px;
+}
+.dlist {
+    
+}
+
+.dinfo {
+    margin-bottom: 16px;
+    gap: 12px;
+    display: flex;
+    align-items: center;
+}
+
+.davt {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    overflow: hidden;
+
+    img {
+        width: 100%;
+        object-fit: cover;
+    }
+}
+
+.dname {
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.dupgrade {
+    display: block;
+    background: var(--alpha-bg);
+    width: 100%;
+    height: 32px;
+    text-align: center;
+    padding: 6px 0;
+    font-weight: 500;
+    font-size: 13px;
+    line-height: 20px;
+    letter-spacing: .015em;
+    border-radius: 22px;
+    color: var(--text-primary) !important;
+}
+
+.line {
+    height: 1px;
+    background-color: var(--border-primary);
+    width: calc(100% - 24px);
+    margin: 10px auto;
+}
+
+.dtitle {
+    color: var(--text-primary);
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 19px;
+    margin-bottom: 8px;
+    text-transform: none;
+    padding: 0 12px;
+}
+
+.ditem {
+    cursor: pointer;
+
+
+
+    input[type="file"] {
+        display: none;
+    }
+}
+
+.ditemLink {
+    padding: 12px 10px;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: inherit;
+    border-radius: 4px;
+
+    &:hover {
+        background-color: var(--alpha-bg);
+        color: var(--text-item-hover);
+    }
+
+    i {
+        font-size: 20px;
+    }
+}
