@@ -1,0 +1,125 @@
+.search {
+    position: relative;
+    width: 100%;
+    max-width: 440px;
+}
+
+.container {
+    position: relative;
+    border-radius: 20px;
+    height: 40px;
+    background-color: var(--alpha-bg);
+}
+
+.icon {
+    position: absolute;
+    cursor: pointer;
+    font-size: 20px;
+    top: -6px;
+    left: 10px;
+    color: var(--text-placeholder);
+}
+
+.inputWrapper {
+    position: absolute;
+    top: 0;
+    left: 38px;
+    right: 10px;
+    bottom: 0;
+
+    input {
+        margin: 0;
+        display: inline-block;
+        width: 95%;
+        font-size: 14px;
+        color: var(--search-text);
+        background-clip: padding-box;
+        border: 0;
+        position: relative;
+        top: 2px;
+        height: 34px;
+        padding: 5px 0;
+        line-height: 34px;
+    }
+}
+
+.btn {
+    font-size: 14px;
+    border-radius: 999px;
+    line-height: normal;
+    border: 0;
+    display: inline-block;
+    font-weight: 400;
+    text-transform: none;
+    text-align: center;
+    cursor: pointer;
+    position: relative;
+}
+
+.show {
+    .container {
+        background-color: #34224f;
+        border-bottom-left-radius: 0;
+        border-bottom-right-radius: 0;
+    }
+}
+
+.sugget {
+    position: absolute;
+    overflow: hidden;
+    width: 100%;
+    height: auto;
+    min-height: 0;
+    background-color: #34224f;
+    z-index: 5;
+    display: block;
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+    box-shadow: 0 4px 6px 0 rgba(32, 33, 36, .28);
+    padding: 13px 10px;
+    color: var(--text-primary);
+}
+
+.suggetList {
+    display: block;
+}
+
+.suggetTitle {
+    font-weight: 600;
+    padding: 5px 10px;
+    padding-top: 0;
+}
+
+.suggetItem {
+    display: flex;
+    align-items: center;
+    padding: 5px 10px;
+    gap: 10px;
+    position: relative;
+    border-radius: 3px;
+    cursor: pointer;
+
+    .icon {
+        font-size: 16px;
+        color: var(--text-secondary);
+        position: relative;
+        top: 2px;
+        left: 0;
+    }
+
+    &:hover {
+        background-color: var(--alpha-bg);
+    }
+}
+
+.clearSeach {
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    top: 10px;
+    right: 0px;
+    cursor: pointer;
+}

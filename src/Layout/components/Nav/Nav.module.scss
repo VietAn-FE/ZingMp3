@@ -1,0 +1,121 @@
+.wraper {
+    position: relative;
+    z-index: 100;
+    width: 240px;
+    background-color: hsla(0, 0%, 100%, 0.05);
+    height: 100%;
+    padding-top: 70px;
+    padding-bottom: 54px;
+}
+
+.brand {
+    width: 240px;
+    height: 70px;
+    position: absolute;
+    top: 0;
+    padding: 0 25px 0 28px;
+    display: flex;
+    align-items: center;
+
+}
+
+.logo {
+    width: 120px;
+    height: 40px;
+    display: inline-block;
+    background: url('../../../assets/images/logo-dark.svg') 50% / contain no-repeat;
+}
+
+.navBarMain {
+    position: relative;
+    margin-bottom: 16px;
+}
+
+
+.divide {
+    position: relative;
+    height: calc(100%  - 208px );
+    overflow-y: auto;
+    padding-top: 15px;
+    &::-webkit-scrollbar {
+        width: 4px;
+        border-radius: 2px;
+    }
+
+    /* Track */
+    &::-webkit-scrollbar-track {
+        background: transparent;
+    }
+
+    /* Handle */
+    &::-webkit-scrollbar-thumb {
+        background: hsla(0, 0%, 100%, 0.3);
+        border-radius: 2px;
+    }
+
+    &:before {
+        content: "";
+        border-top: 1px solid var(--border-primary);
+        position: absolute;
+        left: 25px;
+        right: 25px;
+        top: 0;
+    }
+}
+
+.pad-t-15 {
+    padding-top: 15px !important;
+}
+
+.vipBanner {
+    padding: 15px 8px;
+    border-radius: 8px;
+    margin: 0 20px;
+    text-align: center;
+    background-image: linear-gradient(117deg, #5a4be7, #c86dd7 102%);
+}
+
+.vipBannerText {
+    font-size: 12px;
+    margin-bottom: 10px;
+    font-weight: 600;
+    border-color: #ffdb00;
+    line-height: 1.67;
+    color: var(--white);
+}
+
+.vipBannerBtn {
+    background-color: #ffdb00;
+    border-color: #ffdb00;
+    color: var(--black);
+    display: inline-block;
+    padding: 6px 16px;
+    font-size: 12px;
+    border-radius: 999px;
+    font-weight: 600;
+
+    &:hover {
+        color: var(--black)
+    }
+}
+
+.addPlaylist{
+    display: block;
+}
+.addPlaylistBtn{
+    height: 54px;
+    border-top: 1px solid var(--border-primary);
+    border-radius: 0;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    padding: 0 24px;
+    .icon {
+        font-size: 24px;
+        margin-right: 12px;
+    }
+}
+.myMusic{
+    display: block;
+    margin-top: 15px;
+}
