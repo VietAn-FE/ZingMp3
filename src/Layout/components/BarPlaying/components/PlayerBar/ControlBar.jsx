@@ -69,7 +69,9 @@ const ControlBar = ({ data, volume }) => {
         if (index == playListSong.length - 1) {
             if (repeatSong == ModeRepeatSong.LIST) {
                 dataBarContext.dataSongIsPlaying.setStateSession(playListSong[0]);
+                return;
             }
+            setIsPlay(false);
             return;
         }
         if (repeatSong == ModeRepeatSong.SONG) {

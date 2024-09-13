@@ -20,7 +20,7 @@ export const publicRoutes = [
         title: 'Đăng nhập'
     },
     {
-        path: '/mymusic',
+        path: '/mymusic/:userId',
         component: LibraryPage,
         title: 'Thư viện'
     },
