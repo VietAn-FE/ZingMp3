@@ -33,7 +33,7 @@ function BarPlaying({ isShowBar, setIsShowBar }) {
 
     let songPlayListRender = useMemo(() => {
         return isRandomSong ? shuffleArray(dataSongPlayList.stateSesstion) : dataSongPlayList.stateSesstion
-    }, [isRandomSong, dataSongPlayList])
+    }, [isRandomSong, dataSongPlayList.stateSesstion])
 
 
     const listTab = useMemo(() => {
@@ -56,21 +56,26 @@ function BarPlaying({ isShowBar, setIsShowBar }) {
     }
 
     function shuffleArray(array) {
-        let newAray = [...array]
+        let newAray = [...array];
+        let indexItemPlay = newAray.findIndex((item) => item.radioId == dataSongIsPlaying.stateSesstion.radioId);
+        let itemPlay = newAray.splice(indexItemPlay, 1);
+
         for (let i = newAray.length - 1; i > 0; i--) {
             const j = Math.floor(Math.random() * (i + 1));
             [newAray[i], newAray[j]] = [newAray[j], newAray[i]];
         }
+        newAray.unshift(...itemPlay);
         return newAray;
     }
+
 
     const getContextBar = {
         tabActiveBar,
         idItemShowTT,
         dataSongPlayList,
-        songPlayListRender,
         isRandomSong,
         setIsRandomSong,
+        songPlayListRender,
         dataSongIsPlaying,
         setIdItemShowTT,
         isShowBar,

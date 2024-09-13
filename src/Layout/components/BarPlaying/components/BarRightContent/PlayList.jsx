@@ -1,4 +1,4 @@
-import { Fragment, useContext } from 'react';
+import { Fragment, useContext, useMemo } from 'react';
 import { ListTypeTabBarRight, typeItemSong } from '../../../../../constants/constants';
 import styles from './BRC.module.scss'
 import ItemPlayList from './ItemPlayList';
@@ -7,17 +7,20 @@ import { TabSongContext } from '../..';
 
 const PlayList = () => {
     const dataBarContext = useContext(TabSongContext);
-    const playList = dataBarContext.songPlayListRender;
     const itemPlaying = dataBarContext?.dataSongIsPlaying?.stateSesstion;
-    let playListOn = playList;
+
+    let songPlayListRender = dataBarContext.songPlayListRender;
+
+
+    let playListOn = songPlayListRender;
     let playListPending = [];
     let indexItemPlay = -1
-    if (playList && itemPlaying) {
-        indexItemPlay = playList.findIndex((item) => item.radioId == itemPlaying.radioId);
-        playListOn = indexItemPlay >= 0 ? playList.slice(0, indexItemPlay + 1) : playList
-        playListPending = indexItemPlay >= 0 ? playList.slice(indexItemPlay + 1) : [];
+    if (songPlayListRender && itemPlaying) {
+        indexItemPlay = songPlayListRender.findIndex((item) => item.radioId == itemPlaying.radioId);
+        playListOn = indexItemPlay >= 0 ? songPlayListRender.slice(0, indexItemPlay + 1) : songPlayListRender
+        playListPending = indexItemPlay >= 0 ? songPlayListRender.slice(indexItemPlay + 1) : [];
     }
-
+    
     return (
         <Fragment>
             {dataBarContext?.tabActiveBar == ListTypeTabBarRight.DANH_SACH_PHAT &&
@@ -28,8 +31,8 @@ const PlayList = () => {
                             playListOn && playListOn.length &&
                             playListOn.map((item, index) => {
                                 return (
-                                    <div key={index} className={`${indexItemPlay != -1 && styles.pll__itemPlay} ${index == indexItemPlay && styles.pll__itemPlaying} ${index == indexItemPlay && dataBarContext.isPlaySong ? styles.pll__itemPlayingPlay :'' }`}>
-                                        <ItemPlayList data={item}  typeItem={typeItemSong.ITEM_LISTPLAY} idItemShowTT={dataBarContext.idItemShowTT} setIdItemShowTT={dataBarContext.setIdItemShowTT} />
+                                    <div key={index} className={`${indexItemPlay != -1 && styles.pll__itemPlay} ${index == indexItemPlay && styles.pll__itemPlaying} ${index == indexItemPlay && dataBarContext.isPlaySong ? styles.pll__itemPlayingPlay : ''}`}>
+                                        <ItemPlayList data={item} typeItem={typeItemSong.ITEM_LISTPLAY} idItemShowTT={dataBarContext.idItemShowTT} setIdItemShowTT={dataBarContext.setIdItemShowTT} />
                                     </div>
                                 )
                             })
