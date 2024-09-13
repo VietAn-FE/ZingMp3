@@ -26,9 +26,7 @@ const ControlBar = ({ data, volume }) => {
 
     const audioRef = useRef(null);
     useEffect(() => {
-        console.log(volume / 100)
         audioRef.current.volume = volume / 100;
-
     }, [volume])
 
     useEffect(() => {
@@ -96,6 +94,7 @@ const ControlBar = ({ data, volume }) => {
 
 
     useEffect(() => {
+        dataBarContext.setIsPlaySong(isPlay);
         if (!audioRef.current) {
             return
         }

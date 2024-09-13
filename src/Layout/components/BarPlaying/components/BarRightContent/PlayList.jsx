@@ -28,7 +28,7 @@ const PlayList = () => {
                             playListOn && playListOn.length &&
                             playListOn.map((item, index) => {
                                 return (
-                                    <div key={index} className={`${indexItemPlay != -1 && styles.pll__itemPlay} ${index == indexItemPlay && styles.pll__itemPlaying}`}>
+                                    <div key={index} className={`${indexItemPlay != -1 && styles.pll__itemPlay} ${index == indexItemPlay && styles.pll__itemPlaying} ${index == indexItemPlay && dataBarContext.isPlaySong ? styles.pll__itemPlayingPlay :'' }`}>
                                         <ItemPlayList data={item}  typeItem={typeItemSong.ITEM_LISTPLAY} idItemShowTT={dataBarContext.idItemShowTT} setIdItemShowTT={dataBarContext.setIdItemShowTT} />
                                     </div>
                                 )
