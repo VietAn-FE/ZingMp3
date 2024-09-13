@@ -19,7 +19,7 @@ const ListTab = [
 
 export const TabSongContext = createContext();
 
-function BarPlaying({isShowBar,setIsShowBar}) {
+function BarPlaying({ isShowBar, setIsShowBar }) {
 
     const [tabActiveBar, setTabActiveBar] = useState(ListTypeTabBarRight.DANH_SACH_PHAT);
     const [idItemShowTT, setIdItemShowTT] = useState();
@@ -29,10 +29,11 @@ function BarPlaying({isShowBar,setIsShowBar}) {
     const dataSongIsPlaying = useSessionStorage(ListKeyStoreage.SONG_PLAY);
 
     const [isRandomSong, setIsRandomSong] = useState(false);
+    const [isPlaySong, setIsPlaySong] = useState(false)
 
-    let songPlayListRender = useMemo(()=>{
+    let songPlayListRender = useMemo(() => {
         return isRandomSong ? shuffleArray(dataSongPlayList.stateSesstion) : dataSongPlayList.stateSesstion
-    },[isRandomSong,dataSongPlayList]) 
+    }, [isRandomSong, dataSongPlayList])
 
 
     const listTab = useMemo(() => {
@@ -73,6 +74,8 @@ function BarPlaying({isShowBar,setIsShowBar}) {
         dataSongIsPlaying,
         setIdItemShowTT,
         isShowBar,
+        isPlaySong,
+        setIsPlaySong,
         setIsShowBar
     }
 

@@ -70,7 +70,7 @@ const ItemPlayList = ({ data, tabActive, typeItem, idItemShowTT, setIdItemShowTT
                             </figure>
                             <div className={styles.ipl__action}>
                                 <div className="zm-btn action-play  button" onClick={handleActiveItemPlaying}>
-                                    <i className="icon action-play ic-play"></i>
+                                    <i className={`${styles.iplicon} icon action-play ic-play `}></i>
                                 </div>
                             </div>
                         </div>
