@@ -33,7 +33,6 @@ const ControlBar = ({ data, volume }) => {
 
     useEffect(() => {
         const audio = audioRef.current;
-
         if (audio) {
             const updateTime = () => {
                 setCurrentTime(audio.currentTime);

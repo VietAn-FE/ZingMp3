@@ -25,7 +25,7 @@ const Pages = () => {
             dataUserLogin,
             setIsLogin,
         }
-    }, [isLogin, dataUserLogin])
+    }, [dataUserLogin])
 
 
     return (

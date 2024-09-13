@@ -22,7 +22,8 @@ const ItemPlayList = ({ data, tabActive, typeItem, idItemShowTT, setIdItemShowTT
         if (typeItem == typeItemSong.ITEM_NORMAL) {
             handleAddPlayListSong();
         }
-        dataBarContent.dataSongIsPlaying?.setStateSession(data);
+        let dataSongAdd = {...data, mp3:ListMp3[Math.floor(Math.random() * 4)].path}
+        dataBarContent.dataSongIsPlaying?.setStateSession(dataSongAdd);
     }
 
     const handleShowTooltip = (event) => {
