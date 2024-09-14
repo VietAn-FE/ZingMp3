@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react'
+import { memo, useEffect, useRef, useState } from 'react'
 import styles from './../../BarPlaying.module.scss'
 import useClickOutside from '../../../../../hook/useClickOutside';
 
@@ -53,4 +53,4 @@ function SettingBar() {
     )
 }
 
-export default SettingBar
+export default memo(SettingBar)

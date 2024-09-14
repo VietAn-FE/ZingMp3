@@ -1,26 +1,38 @@
 import Header from "../components/Header"
 import Navigation from "../components/Nav"
 import BarPlaying from "../components/BarPlaying"
-import { Fragment, useState } from "react"
-import { AuthContext } from "../../pages"
+import { createContext, useContext, useState } from "react"
 import './../../GlobeStyle/style.scss'
-import useSessionStorage from "../../hook/useStorage"
-import { ListKeyStoreage } from "../../constants/constants"
-
+export const ClassLayoutContext = createContext();
 function DefaultLayout({ children }) {
-    const dataSongIsPlaying = useSessionStorage(ListKeyStoreage.SONG_PLAY);
-    const hasPlayer = dataSongIsPlaying?.stateSesstion;
-    const [isShowBar, setIsShowBar] = useState(true); 
+    const [isShowBar, setIsShowBar] = useState(true);
+    const [isHasPlayer, setIsHasPlayer] = useState(false);
+    const getValueContext = () => {
+        return {
+            isShowBar,
+            setIsShowBar,
+            isHasPlayer,
+            setIsHasPlayer
+        }
+    }
     return (
-        <div className={`${hasPlayer? 'has-player' :''}  ${isShowBar? 'show-bar-right' :''} zm-layout `}>
-            <Header />
-            <Navigation />
-            <main className="zm-main-page">
-                {children}
-            </main>
-            <BarPlaying isShowBar={isShowBar} setIsShowBar={setIsShowBar}/>
+        <div className={`${isHasPlayer ? 'has-player' : ''}  ${isShowBar ? 'show-bar-right' : ''} zm-layout `}>
+            <ClassLayoutContext.Provider value={getValueContext()}>
+                <Header />
+                <Navigation />
+                <main className="zm-main-page">
+                    {children}
+                </main>
+                <BarPlaying/>
+            </ClassLayoutContext.Provider>
         </div>
     )
+}
+
+
+export const useClassLayoutContext = () => {
+    const useContextLO = useContext(ClassLayoutContext);
+    return { ...useContextLO }
 }
 
 export default DefaultLayout

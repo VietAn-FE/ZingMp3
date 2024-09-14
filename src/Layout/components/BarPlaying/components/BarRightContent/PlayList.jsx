@@ -1,42 +1,41 @@
-import { Fragment, useContext, useMemo } from 'react';
+import { Fragment, memo, useContext, useMemo } from 'react';
 import { ListTypeTabBarRight, typeItemSong } from '../../../../../constants/constants';
 import styles from './BRC.module.scss'
 import ItemPlayList from './ItemPlayList';
-import { TabSongContext } from '../..';
+import { useTabSongContext } from '../../../../../context/tabsong';
 
 
 const PlayList = () => {
-    const dataBarContext = useContext(TabSongContext);
-    const itemPlaying = dataBarContext?.dataSongIsPlaying?.stateSesstion;
-
-    let songPlayListRender = dataBarContext.songPlayListRender;
+    const { actionTabSong, selectorTabSong } = useTabSongContext();
+    const { tabBarRightActive, listSongChoice, isReverseListSong, listSongReverse, songPlayer } = selectorTabSong;
+    let songPlayListRender = isReverseListSong ? listSongReverse : listSongChoice;
 
 
     let playListOn = songPlayListRender;
     let playListPending = [];
-    let indexItemPlay = -1
-    if (songPlayListRender && itemPlaying) {
-        indexItemPlay = songPlayListRender.findIndex((item) => item.radioId == itemPlaying.radioId);
+    let indexItemPlay = -1;
+
+    if (songPlayListRender && songPlayer) {
+        indexItemPlay = songPlayListRender.findIndex((item) => item.radioId == songPlayer.radioId);
         playListOn = indexItemPlay >= 0 ? songPlayListRender.slice(0, indexItemPlay + 1) : songPlayListRender
         playListPending = indexItemPlay >= 0 ? songPlayListRender.slice(indexItemPlay + 1) : [];
     }
-    
+
+
     return (
         <Fragment>
-            {dataBarContext?.tabActiveBar == ListTypeTabBarRight.DANH_SACH_PHAT &&
+            {tabBarRightActive == ListTypeTabBarRight.DANH_SACH_PHAT &&
                 <div className={styles.pll__wrapper} style={{ marginBottom: 20 }}>
 
                     <div className={styles.pll__list} style={{ marginBottom: 10 }}>
                         {
-                            playListOn && playListOn.length &&
-                            playListOn.map((item, index) => {
-                                return (
-                                    <div key={index} className={`${indexItemPlay != -1 && styles.pll__itemPlay} ${index == indexItemPlay && styles.pll__itemPlaying} ${index == indexItemPlay && dataBarContext.isPlaySong ? styles.pll__itemPlayingPlay : ''}`}>
-                                        <ItemPlayList data={item} typeItem={typeItemSong.ITEM_LISTPLAY} idItemShowTT={dataBarContext.idItemShowTT} setIdItemShowTT={dataBarContext.setIdItemShowTT} />
-                                    </div>
-                                )
-                            })
-
+                            playListOn && playListOn.length ?
+                                playListOn.map((item, index) => {
+                                    return (
+                                        <ItemPlayList key={index} data={item} typeItem={typeItemSong.ITEM_LISTPLAY} />
+                                    )
+                                })
+                                : ''
                         }
                     </div>
                     <div className={styles.pll__list}>
@@ -47,7 +46,7 @@ const PlayList = () => {
                             playListPending && playListPending?.length ?
                                 playListPending.map((item, index) => {
                                     return (
-                                        <ItemPlayList data={item} key={index} typeItem={typeItemSong.ITEM_LISTPLAY} idItemShowTT={dataBarContext.idItemShowTT} setIdItemShowTT={dataBarContext.setIdItemShowTT} />
+                                        <ItemPlayList data={item} key={index} typeItem={typeItemSong.ITEM_LISTPLAY} />
                                     )
                                 }) : ''
 
@@ -59,4 +58,4 @@ const PlayList = () => {
         </Fragment>
     )
 }
-export default PlayList
+export default memo(PlayList)

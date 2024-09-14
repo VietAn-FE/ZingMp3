@@ -2,7 +2,7 @@ import { Link } from "react-router-dom"
 import styles from './UserHeader.module.scss'
 import useContextLogin from "../../../../../hook/useContextLogin"
 import MenuUser from "./MenuUser";
-import { Fragment, useEffect, useRef, useState } from "react";
+import { Fragment, memo, useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import useClickOutside from "../../../../../hook/useClickOutside";
 
@@ -42,4 +42,4 @@ function UserHeader() {
   )
 }
 
-export default UserHeader
+export default memo(UserHeader)

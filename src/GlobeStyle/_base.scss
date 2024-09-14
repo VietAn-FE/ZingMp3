@@ -219,16 +219,9 @@ figure {
     right: 330px;
   }
   .bar-right{
-    transition: all 0.3s ease-in-out;
     right: 0;
   }
 }
-
-.bar-right{
-  transition: all 0.3s ease-in-out;
-  right: -330px;
-}
-
 .disabled {
   pointer-events: none;
   -webkit-user-select: none;

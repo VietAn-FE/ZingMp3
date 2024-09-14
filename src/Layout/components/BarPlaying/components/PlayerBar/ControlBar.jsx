@@ -1,33 +1,27 @@
 import styles from './BP.module.scss'
 import RangeButton from '../../../../../components/Button/RangeButton'
 import { memo, useContext, useEffect, useRef, useState } from 'react';
-import { TabSongContext } from '../..';
+import { useTabSongContext } from '../../../../../context/tabsong';
+import { ACTION_TYPE, MODE_REPEAT_SONG } from '../../../../../context/tabsong/constant';
+import { formatTime } from '../../../../../common/ultilities';
 
-const ModeRepeatSong = {
-    NONE: 0,
-    LIST: 1,
-    SONG: 2
-}
+const ControlBar = ({ data }) => {
 
+    const { selectorTabSong, actionTabSong } = useTabSongContext();
+    const { songPlayer, listSongChoice, volumn, isPlaying, modeRepeatSong, isReverseListSong, listSongReverse } = selectorTabSong;
 
+    const { handleSetPlaying, handleSetSongPlayer, handleSetReverseListSong, handleSetRepeatSong } = actionTabSong;
 
-const ControlBar = ({ data, volume }) => {
-
-    const dataBarContext = useContext(TabSongContext)
-
-    // console.log(33, dataBarContext)
-
-    const playListSong = dataBarContext.songPlayListRender
-
-    const [isPlay, setIsPlay] = useState(false);
     const [currentTime, setCurrentTime] = useState(0);
     const [duration, setDuration] = useState(0);
-    const [repeatSong, setRepeatSong] = useState(ModeRepeatSong.NONE);
 
     const audioRef = useRef(null);
+
+    let songPlayList = isReverseListSong ? listSongReverse : listSongChoice;
+
     useEffect(() => {
-        audioRef.current.volume = volume / 100;
-    }, [volume])
+        audioRef.current.volume = volumn / 100;
+    }, [volumn])
 
     useEffect(() => {
         const audio = audioRef.current;
@@ -43,69 +37,86 @@ const ControlBar = ({ data, volume }) => {
             audio.ontimeupdate = updateTime;
 
             audio.onended = () => {
-                handleNextSong();
+                endSongAction();
             };
 
             return () => {
                 audio.ontimeupdate = null;
             };
         }
-    }, [data, repeatSong]);
+    }, [data, songPlayList, modeRepeatSong]);
+
+    const endSongAction = () => {
+        handleNextSong();
+    }
 
     const handlePlayAudio = () => {
-        setIsPlay(!isPlay);
+        handleSetPlaying(ACTION_TYPE.SET_IS_PLAYING, !isPlaying);
     };
 
     const handleBackSong = () => {
-        const index = playListSong.findIndex((item) => item.radioId == data.radioId);
+        const index = songPlayList.findIndex((item) => item.radioId == data.radioId);
         if (index == 0) {
             return;
         }
-        dataBarContext.dataSongIsPlaying.setStateSession(playListSong[index - 1]);
+        let itemPrev = songPlayList[index - 1]
+        let dataSongPlayer = {
+            title: itemPrev?.title,
+            thumb: itemPrev?.thumbnail,
+            author: itemPrev?.artistsNames,
+            radioId: itemPrev?.radioId,
+            currentTimePlay: 0,
+        }
+        handleSetSongPlayer(ACTION_TYPE.SET_SONG_PLAYER, dataSongPlayer);
     }
 
     const handleNextSong = () => {
-        const index = playListSong.findIndex((item) => item.radioId == data.radioId);
-        if (index == playListSong.length - 1) {
-            if (repeatSong == ModeRepeatSong.LIST) {
-                dataBarContext.dataSongIsPlaying.setStateSession(playListSong[0]);
+        const index = songPlayList.findIndex((item) => item.radioId == data.radioId);
+
+        if (modeRepeatSong == MODE_REPEAT_SONG.SONG) {
+            audioRef.current.currentTime = 0;
+            return;
+        }
+
+        if (index == songPlayList.length - 1) {
+            console.log(1);
+            if (modeRepeatSong == MODE_REPEAT_SONG.LIST) {
+                handleSetSongPlayer(ACTION_TYPE.SET_SONG_PLAYER, songPlayList[0]);
+                audioRef.current.currentTime = 0;
                 return;
             }
-            setIsPlay(false);
+            handleSetPlaying(ACTION_TYPE.SET_IS_PLAYING, false);
             return;
         }
-        if (repeatSong == ModeRepeatSong.SONG) {
-            audioRef.current.currentTime = 0;
-            audioRef.current.play();
-            return;
+
+        let itemNext = songPlayList[index + 1]
+        let dataSongPlayer = {
+            title: itemNext?.title,
+            thumb: itemNext?.thumbnail,
+            author: itemNext?.artistsNames,
+            radioId: itemNext?.radioId,
+            currentTimePlay: 0,
         }
-        dataBarContext.dataSongIsPlaying.setStateSession(playListSong[index + 1]);
+        handleSetSongPlayer(ACTION_TYPE.SET_SONG_PLAYER, dataSongPlayer);
     }
 
     const handleRepeatSong = () => {
-        let index = repeatSong == ModeRepeatSong.SONG ? 0 : repeatSong + 1;
-        setRepeatSong(index)
+        let modeRepeat = modeRepeatSong == MODE_REPEAT_SONG.SONG ? 0 : modeRepeatSong + 1;
+        handleSetRepeatSong(ACTION_TYPE.SET_IS_REPEAT_SONG, modeRepeat)
     }
 
     useEffect(() => {
-        if (!audioRef.current) {
-            return
-        }
-        audioRef.current.currentTime = 0;
-    }, [data])
-
-
-    useEffect(() => {
-        dataBarContext.setIsPlaySong(isPlay);
-        if (!audioRef.current) {
-            return
-        }
-        if (isPlay) {
-            audioRef.current.play();
-            return
-        }
-        audioRef.current.pause();
-    }, [isPlay, data])
+        (() => {
+            if (!audioRef.current) {
+                return
+            }
+            if (isPlaying) {
+                audioRef.current.play();
+                return
+            }
+            audioRef.current.pause();
+        })()
+    }, [isPlaying, data])
 
 
 
@@ -113,27 +124,24 @@ const ControlBar = ({ data, volume }) => {
         const audio = audioRef.current;
         const newTime = (e.target.value / 100) * duration;
         audio.currentTime = newTime;
-        setCurrentTime(newTime);
     };
 
-    const formatTime = (time) => {
-        const minutes = Math.floor(time / 60);
-        const seconds = Math.floor(time % 60);
-        return `${minutes < 10 ? "0" : ""}${minutes}:${seconds < 10 ? "0" : ""}${seconds}`;
-    };
+    const handleSetReverseSong = () => {
+        handleSetReverseListSong(ACTION_TYPE.SET_IS_REVERSE_LIST_SONG, !isReverseListSong)
+    }
 
 
     return (
         <div className={styles.pb__center}>
             <div className={styles.pb__clist}>
-                <button className={`${styles.pb__clitem} ${dataBarContext.isRandomSong ? styles.pb__active : ''}`} onClick={() => dataBarContext.setIsRandomSong(!dataBarContext.isRandomSong)}>
+                <button className={`${styles.pb__clitem} ${isReverseListSong ? styles.pb__active : ''}`} onClick={handleSetReverseSong}>
                     <i className="icon ic-shuffle"></i>
                 </button>
                 <button className={styles.pb__clitem} onClick={handleBackSong}>
                     <i className="icon ic-pre"></i>
                 </button>
                 <button className={`${styles.pb__clitem} ${styles.pb__clitemPlay}`} onClick={handlePlayAudio} >
-                    {isPlay ?
+                    {isPlaying ?
                         <i className="icon ic-pause-circle-outline"></i>
                         :
                         <i className="icon ic-play-circle-outline"></i>
@@ -143,8 +151,8 @@ const ControlBar = ({ data, volume }) => {
                 <button className={styles.pb__clitem} onClick={handleNextSong}>
                     <i className="icon ic-next"></i>
                 </button>
-                <button className={`${styles.pb__clitem} ${repeatSong != ModeRepeatSong.NONE ? styles.pb__active : ''}`} onClick={handleRepeatSong}>
-                    {repeatSong == ModeRepeatSong.SONG ?
+                <button className={`${styles.pb__clitem} ${modeRepeatSong != MODE_REPEAT_SONG.NONE ? styles.pb__active : ''}`} onClick={handleRepeatSong}>
+                    {modeRepeatSong == MODE_REPEAT_SONG.SONG ?
                         <i className="icon ic-repeat-one"></i>
                         :
                         <i className="icon ic-repeat"></i>
@@ -159,7 +167,7 @@ const ControlBar = ({ data, volume }) => {
                 <span className={styles.pb__cbtime}>{formatTime(duration)}</span>
             </div>
 
-            <audio ref={audioRef} src={data.mp3} />
+            <audio ref={audioRef} src={data.path} />
         </div>
     )
 }

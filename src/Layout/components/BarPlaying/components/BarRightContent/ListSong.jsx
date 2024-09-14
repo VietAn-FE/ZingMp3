@@ -1,31 +1,30 @@
 import { Fragment, useContext, useState } from "react";
-import { TabSongContext } from "../..";
 import useGetListSong from "../../../../../hook/useGetListSong";
 import styles from './BRC.module.scss'
 import { ListTypeTabBarRight, StatusFetching, typeItemSong } from "../../../../../constants/constants";
 import ItemLoading from "./ItemLoading";
 import ItemPlayList from "./ItemPlayList";
 import ToggleButton from "../../../../../components/Button/ToggleButton";
+import { useTabSongContext } from "../../../../../context/tabsong";
 const ListSong = () => {
-    const dataBarContent = useContext(TabSongContext);
-    const dataSong = useGetListSong(dataBarContent.tabActiveBar);
+    const { selectorTabSong } = useTabSongContext();
+    const { tabBarRightActive,listSongChoice } = selectorTabSong;
+    const dataSong = useGetListSong(tabBarRightActive);
 
     const [isShowSugget, setIsShowSugget] = useState(true);
 
     const handleShowSugget = (status) => {
-        if (dataBarContent.tabActiveBar != ListTypeTabBarRight.DANH_SACH_PHAT) {
+        if (tabBarRightActive != ListTypeTabBarRight.DANH_SACH_PHAT) {
             return;
         }
         setIsShowSugget(status)
     }
 
-  
-
     let dataSongRender = dataSong?.data?.items && dataSong?.data?.items.length ? dataSong?.data?.items : [];
-    if (dataBarContent.tabActiveBar == ListTypeTabBarRight.DANH_SACH_PHAT) {
-        if (dataSongRender.length && dataBarContent.dataSongPlayList.stateSesstion?.length) {
+    if (tabBarRightActive == ListTypeTabBarRight.DANH_SACH_PHAT) {
+        if (dataSongRender.length && listSongChoice.length) {
             dataSongRender = dataSongRender.filter((item) => {
-                return !dataBarContent.dataSongPlayList.stateSesstion.some((items) => items.radioId == item.radioId)
+                return !listSongChoice.some((items) => items.radioId == item.radioId)
             })
         }
     }
@@ -40,7 +39,7 @@ const ListSong = () => {
                     <ItemLoading />
                 </Fragment>
             }
-            {dataBarContent.tabActiveBar == ListTypeTabBarRight.DANH_SACH_PHAT &&
+            {tabBarRightActive == ListTypeTabBarRight.DANH_SACH_PHAT &&
                 <div className={styles.pll__flex}>
                     <div>
                         <p>Tự động phát</p>
@@ -56,7 +55,7 @@ const ListSong = () => {
                         dataSongRender && dataSongRender.length &&
                         dataSongRender.map((item, index) => {
                             return (
-                                <ItemPlayList data={item} key={index} typeItem={typeItemSong.ITEM_NORMAL} tabActive={dataBarContent.tabActiveBar} idItemShowTT={dataBarContent.idItemShowTT} setIdItemShowTT={dataBarContent.setIdItemShowTT} />
+                                <ItemPlayList data={item} key={index} typeItem={typeItemSong.ITEM_NORMAL} />
                             )
                         })
 

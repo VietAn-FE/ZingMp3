@@ -1,5 +1,6 @@
 import { NavLink } from 'react-router-dom';
 import styles from './LisstNavItem.module.scss'
+import { memo } from 'react';
 
 function ListNavItem({ data }) {
     return (
@@ -20,4 +21,4 @@ function ListNavItem({ data }) {
     )
 }
 
-export default ListNavItem;
+export default memo(ListNavItem);

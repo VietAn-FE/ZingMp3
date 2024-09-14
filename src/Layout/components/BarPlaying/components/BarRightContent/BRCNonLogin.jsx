@@ -1,7 +1,7 @@
-import { Fragment } from "react"
 import ItemLoading from "./ItemLoading"
 import { Link } from "react-router-dom"
 import styles from '../../BarPlaying.module.scss'
+import { memo } from "react"
 
 const BRCNonLogin = () => {
     return (
@@ -20,4 +20,4 @@ const BRCNonLogin = () => {
     )
 }
 
-export default BRCNonLogin
+export default memo(BRCNonLogin)

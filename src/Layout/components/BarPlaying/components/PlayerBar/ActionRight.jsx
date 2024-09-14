@@ -1,13 +1,16 @@
 import styles from './BP.module.scss'
 import RangeButton from '../../../../../components/Button/RangeButton'
-import { useContext } from 'react';
+import { memo, useContext } from 'react';
 import { TabSongContext } from '../..';
-const ActionRight = ({ data, volume, setVolume }) => {
+import { useTabSongContext } from '../../../../../context/tabsong';
+import { ACTION_TYPE } from '../../../../../context/tabsong/constant';
+import { useClassLayoutContext } from '../../../../DefaultLayout';
 
-    const dataBarContext = useContext(TabSongContext)
+const ActionRight = ({ volumn, setVolumnPlayer }) => {
+    const classLayoutContext = useClassLayoutContext();
 
     const handleProgressChange = (e) => {
-        setVolume(e.target.value);
+        setVolumnPlayer(ACTION_TYPE.SET_VOLUMN_PLAYER, e.target.value);
     };
 
     return (
@@ -33,7 +36,7 @@ const ActionRight = ({ data, volume, setVolume }) => {
                         <i className="icon ic-volume"></i>
                     </button>
                     <div className={styles.pb__rprocess}>
-                        <RangeButton valueRange={volume} onChangeProcessBar={handleProgressChange} />
+                        <RangeButton valueRange={volumn} onChangeProcessBar={handleProgressChange} />
                     </div>
                 </div>
             </div>
@@ -41,7 +44,7 @@ const ActionRight = ({ data, volume, setVolume }) => {
                 <span className={styles.pb__rdivide}></span>
             </div>
             <div className={styles.pb__ritem}>
-                <button className={`${styles.pb__rlistMusic} ${dataBarContext.isShowBar ? styles.active : ''}`} onClick={() => dataBarContext.setIsShowBar(!dataBarContext.isShowBar)}>
+                <button className={`${styles.pb__rlistMusic} ${classLayoutContext.isShowBar ? styles.active : ''}`} onClick={() => classLayoutContext.setIsShowBar(!classLayoutContext.isShowBar)}>
 
                     <i className="icon ic-list-music"></i>
                 </button>
@@ -50,4 +53,4 @@ const ActionRight = ({ data, volume, setVolume }) => {
     )
 }
 
-export default ActionRight
+export default memo(ActionRight)

@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import { default as useApi } from '../../../../../api/serverSearch'
 import styles from './SearchBox.module.scss'
+import { memo } from 'react';
 
 function SuggetList({ valueSearch }) {
     const isSearch = valueSearch ? true : false;
@@ -30,4 +31,4 @@ function SuggetList({ valueSearch }) {
     )
 }
 
-export default SuggetList
+export default memo(SuggetList)

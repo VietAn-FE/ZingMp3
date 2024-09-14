@@ -2,7 +2,8 @@ import { memo, useState } from 'react'
 import styles from './BP.module.scss'
 import { createPortal } from 'react-dom'
 import TooltipSongItem from '../BarRightContent/ToolTipSongItem'
-const InfoSong = ({ data }) => {
+import { useTabSongContext } from '../../../../../context/tabsong'
+const InfoSong = ({data}) => {
     const [showTT, setShowTT] = useState(false)
     const [position, setPosition] = useState({
         top: 0,
@@ -17,6 +18,9 @@ const InfoSong = ({ data }) => {
         }
         setPosition(post)
         setShowTT(true);
+    }
+    const handleCloseTooltip = () => {
+        setShowTT(false);
     }
     return (
         <div className={styles.pb__left}>
@@ -48,7 +52,7 @@ const InfoSong = ({ data }) => {
                 </div>
             </div>
             {showTT && createPortal(
-                <TooltipSongItem position={position} data={data} setIdItemShowTT={setShowTT} />,
+                <TooltipSongItem position={position} data={data} callbackClickOutside={handleCloseTooltip} />,
                 document.body
             )}
         </div>

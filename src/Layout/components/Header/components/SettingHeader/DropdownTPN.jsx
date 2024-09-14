@@ -2,6 +2,7 @@ import styles from './SettingHeader.module.scss'
 import ToggleButton from '../../../../../components/Button/ToggleButton'
 import RadioButton from '../../../../../components/Button/RadioButton'
 import RangeButton from '../../../../../components/Button/RangeButton'
+import { memo } from 'react'
 function DropdownTPN() {
     const dataRadio = [
         {
@@ -56,4 +57,4 @@ function DropdownTPN() {
         </div>
     )
 }
-export default DropdownTPN
+export default memo(DropdownTPN)

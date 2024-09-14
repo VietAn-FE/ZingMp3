@@ -2,7 +2,6 @@ import { useRef } from 'react';
 import useClickOutside from '../../../../../hook/useClickOutside';
 import styles from './BRC.module.scss'
 const TooltipSongItem = ({ position, data, callbackClickOutside }) => {
-    console.log(data)
     const styleTT = {
         top: `${position.top}px`,
         left: `${position.left}px`,
@@ -43,8 +42,8 @@ const TooltipSongItem = ({ position, data, callbackClickOutside }) => {
         },
     ]
     return (
-        <div className={styles.tts__portal} style={styleTT} ref={refEl}>
-            <div className="zm-contextmenu song-menu">
+        <div className={styles.tts__portal} style={styleTT} >
+            <div className={styles.tts__ct} ref={refEl}>
                 <div className="menu">
                     <ul className={styles.tts__menu}>
                         <div className="menu-list--submenu">
@@ -104,6 +103,7 @@ const TooltipSongItem = ({ position, data, callbackClickOutside }) => {
                     <p className={styles.tts__dis}>Cung cấp bởi {data.distributor}</p>
                 </div>
             </div>
+            <div className={styles.tts__bg}></div>
         </div>
     )
 }

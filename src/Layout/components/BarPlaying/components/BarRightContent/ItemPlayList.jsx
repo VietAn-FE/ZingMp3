@@ -1,47 +1,52 @@
-import { useContext, useRef, useState, memo } from 'react';
-import { ListMp3, ListTypeTabBarRight, typeItemSong } from '../../../../../constants/constants'
+import { useState, memo } from 'react';
+import { ListTypeTabBarRight, sizeToolTipSong, typeItemSong } from '../../../../../constants/constants'
 import styles from './BRC.module.scss'
 import { createPortal } from 'react-dom';
 import TooltipSongItem from './ToolTipSongItem';
-import { TabSongContext } from '../..';
-const ItemPlayList = ({ data, tabActive, typeItem, idItemShowTT, setIdItemShowTT }) => {
+import { useTabSongContext } from '../../../../../context/tabsong';
+import { ACTION_TYPE } from '../../../../../context/tabsong/constant';
+const ItemPlayList = ({ data, typeItem }) => {
+    const { actionTabSong, selectorTabSong } = useTabSongContext();
+    const { tabBarRightActive, listSongChoice, songPlayer, isPlaying } = selectorTabSong;
+    const { handleSetSongPlayer, handleAddSongListChoice,handleSetPlaying } = actionTabSong
 
-    const dataBarContent = useContext(TabSongContext);
+    const [isShowTT, setIsShowTT] = useState(false)
 
     const [position, setPosition] = useState({
         top: 0,
         left: 0
     })
 
-    const sizeTT = {
-        height: 430,
-        width: 280
-    };
+
+    let isItemPlayer = data.radioId == songPlayer.radioId ? true : false;
 
     const handleActiveItemPlaying = () => {
-        if (typeItem == typeItemSong.ITEM_NORMAL) {
-            handleAddPlayListSong();
+        if (isItemPlayer) {
+            handleSetPlaying(ACTION_TYPE.SET_IS_PLAYING, !isPlaying);
+            return
         }
-        let dataSongAdd = {...data, mp3:ListMp3[Math.floor(Math.random() * 4)].path}
-        dataBarContent.dataSongIsPlaying?.setStateSession(dataSongAdd);
+        if (typeItem == typeItemSong.ITEM_NORMAL) {
+            handleAddSongListChoice(ACTION_TYPE.ADD_SONG_LIST_CHOICE, data);
+        }
+        let dataSongPlayer = {
+            title: data?.title,
+            thumb: data?.thumbnail,
+            author: data?.artistsNames,
+            radioId: data?.radioId,
+            currentTimePlay: 0,
+        }
+        handleSetSongPlayer(ACTION_TYPE.SET_SONG_PLAYER, dataSongPlayer);
+        handleSetPlaying(ACTION_TYPE.SET_IS_PLAYING, true);
     }
 
     const handleShowTooltip = (event) => {
-        if (idItemShowTT) {
-            setPosition({
-                top: 0,
-                left: 0
-            })
-            setIdItemShowTT();
-            return;
-        }
         const itemRect = event.target.getBoundingClientRect();
         let post = {
-            top: itemRect.top + sizeTT.height < window.innerHeight ? itemRect.top : itemRect.top - sizeTT.height < 0 ? 10 : itemRect.top - sizeTT.height,
-            left: itemRect.left - sizeTT.width
+            top: itemRect.top + sizeToolTipSong.height < window.innerHeight ? itemRect.top : itemRect.top - sizeToolTipSong.height < 0 ? 10 : itemRect.top - sizeToolTipSong.height,
+            left: itemRect.left - sizeToolTipSong.width
         }
-        setPosition(post)
-        setIdItemShowTT(data.radioId);
+        setPosition(post);
+        setIsShowTT(true);
     }
 
     const callbackClickOutside = () => {
@@ -49,19 +54,17 @@ const ItemPlayList = ({ data, tabActive, typeItem, idItemShowTT, setIdItemShowTT
             top: 0,
             left: 0
         })
-        setIdItemShowTT();
+        setIsShowTT(false);
     }
 
     const handleAddPlayListSong = () => {
-        let dataOld = dataBarContent.dataSongPlayList.stateSesstion ? dataBarContent.dataSongPlayList.stateSesstion : [];
-        let dataSongAdd = {...data, mp3:ListMp3[Math.floor(Math.random() * 4)].path}
-        dataBarContent.dataSongPlayList.setStateSession([...dataOld, dataSongAdd]);
+        handleAddSongListChoice(ACTION_TYPE.ADD_SONG_LIST_CHOICE, data);
     }
+
 
     return (
         <>
-
-            <div className={styles.ipl__wrapper} >
+            <div className={` ${styles.ipl__wrapper} ${isShowTT ? styles.active : ''} ${isItemPlayer && styles.pll__itemPlaying} ${isItemPlayer && isPlaying ? styles.pll__itemPlayingPlay : ''}`} >
                 <div className={styles.ipl__media}>
                     <div className={styles.ipl__left}>
                         <div className={styles.ipl__thumb}>
@@ -86,10 +89,10 @@ const ItemPlayList = ({ data, tabActive, typeItem, idItemShowTT, setIdItemShowTT
                         </div>
                     </div>
                     <div className={styles.ipl__right}>
-                        <div className={`${styles.ipl__level} ${tabActive == ListTypeTabBarRight.DANH_SACH_PHAT && styles.ipl__levelFlex}`}>
+                        <div className={`${styles.ipl__level} ${typeItem == typeItemSong.ITEM_NORMAL && styles.ipl__levelFlex}`}>
                             <div className={styles.ipl__leverItem}>
                                 {
-                                    tabActive == ListTypeTabBarRight.DANH_SACH_PHAT ?
+                                    typeItem == typeItemSong.ITEM_NORMAL ?
                                         <button className="zm-btn zm-tooltip-btn is-hover-circle button" onClick={handleAddPlayListSong} >
                                             <i className="icon ic-add-play-now"></i>
                                         </button>
@@ -109,7 +112,7 @@ const ItemPlayList = ({ data, tabActive, typeItem, idItemShowTT, setIdItemShowTT
                     </div>
                 </div>
             </div>
-            {idItemShowTT == data.radioId && createPortal(
+            {isShowTT && createPortal(
                 <TooltipSongItem position={position} data={data} callbackClickOutside={callbackClickOutside} />,
                 document.body
             )}

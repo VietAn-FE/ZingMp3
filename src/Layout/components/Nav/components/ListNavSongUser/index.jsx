@@ -1,3 +1,4 @@
+import { memo } from 'react';
 import styles from './ListNavSongUser.module.scss'
 
 function ListNavSongUser({ data }) {
@@ -14,4 +15,4 @@ function ListNavSongUser({ data }) {
     )
 }
 
-export default ListNavSongUser;
+export default memo(ListNavSongUser);
