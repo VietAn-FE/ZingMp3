@@ -79,7 +79,7 @@
     &__wrapper {
         border-radius: 4px;
 
-        &:hover {
+        &:hover ,&.active{
             background-color: var(--alpha-bg);
 
             .ipl__level {
@@ -298,5 +298,18 @@
         padding: 0 15px 10px;
         text-align: center;
         color: var(--text-secondary);
+    }
+    &__ct{
+        position: relative;
+        z-index: 3;
+    }
+    &__bg{
+        position: fixed;
+        background: #ffffff00;
+        width: 100%;
+        height: 100%;
+        z-index: 2;
+        left: 0;
+        top: 0;
     }
 }

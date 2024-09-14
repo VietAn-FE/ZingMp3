@@ -1,25 +1,35 @@
-
-import { TabSongContext } from '../..'
-import { ListSongDSP } from '../../../../../afakeData/dataFake'
+import { useTabSongContext } from '../../../../../context/tabsong'
+import { useClassLayoutContext } from '../../../../DefaultLayout'
 import ActionRight from './ActionRight'
 import styles from './BP.module.scss'
 import ControlBar from './ControlBar'
 import InfoSong from './InfoSong'
-import { Fragment, memo, useContext, useState } from 'react'
+import { Fragment, memo, useEffect, useMemo } from 'react'
 function PlayerBar() {
-    const dataBarContent = useContext(TabSongContext);
-    const [volume,setVolume] = useState(100);
+    const { selectorTabSong, actionTabSong } = useTabSongContext();
+    const { songPlayer, listSongChoice, volumn, isPlaying, modeMixSong, isReverseListSong } = selectorTabSong;
+    const { handleSetVolumnPlayer } = actionTabSong;
+    const classLayoutContext = useClassLayoutContext();
 
-    const songInfo = dataBarContent?.dataSongIsPlaying?.stateSesstion
+    let dataSong = useMemo(() => {
+        return listSongChoice.length && songPlayer.radioId ? listSongChoice.find((item) => item.radioId == songPlayer.radioId) : [];
+    }, [songPlayer, listSongChoice]);
+
+    useEffect(() => {
+        if (dataSong.radioId) {
+            classLayoutContext.setIsHasPlayer(true);
+        }
+    }, [dataSong])
+
     return (
         <Fragment>
             {
-                dataBarContent?.dataSongIsPlaying?.stateSesstion &&
+                dataSong && dataSong.radioId &&
                 <div className={styles.pb__wrapper}>
                     <div className={styles.pb__controlContainer}>
-                        <InfoSong data={songInfo} />
-                        <ControlBar data={songInfo} volume={volume}/>
-                        <ActionRight data={songInfo} volume={volume} setVolume={setVolume}/>
+                        <InfoSong data={dataSong} />
+                        <ControlBar data={dataSong} />
+                        <ActionRight volumn={volumn} setVolumnPlayer={handleSetVolumnPlayer} />
                     </div>
                 </div>
             }

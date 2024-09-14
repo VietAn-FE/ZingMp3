@@ -1,3 +1,4 @@
+import { memo } from 'react';
 import { ListKeyStoreage } from '../../../../../constants/constants';
 import useContextLogin from '../../../../../hook/useContextLogin';
 import styles from './UserHeader.module.scss'
@@ -64,4 +65,4 @@ function MenuUser({ dataUser }) {
     )
 }
 
-export default MenuUser
+export default memo(MenuUser)

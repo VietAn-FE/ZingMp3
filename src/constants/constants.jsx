@@ -15,8 +15,7 @@ export const ListLabelTabBarRight = {
 
 export const ListKeyStoreage = {
     ACCESS_TOKEN: 'access_token',
-    PLAY_LIST_SONG: 'play_list_song',
-    SONG_PLAY: 'song_play'
+    PLAY_LIST_SONG: 'PLAY_LIST_SONG',
 }
 
 export const StatusFetching = {
@@ -56,3 +55,8 @@ export const repeatAudio = {
     SONG: 1,
     PLAYLIST: 2,
 }
+
+export const sizeToolTipSong = {
+    height: 430,
+    width: 280
+};

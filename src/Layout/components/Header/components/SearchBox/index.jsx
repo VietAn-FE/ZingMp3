@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react'
+import { memo, useEffect, useRef, useState } from 'react'
 import styles from './SearchBox.module.scss'
 import SuggetList from './SuggetList'
 import useClickOutside from '../../../../../hook/useClickOutside';
@@ -49,4 +49,4 @@ function SearchBox() {
     )
 }
 
-export default SearchBox
+export default memo(SearchBox)

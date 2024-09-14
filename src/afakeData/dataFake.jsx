@@ -582,7 +582,8 @@ export const ListSongDSP = {
             "isIndie": false,
             "streamingStatus": 1,
             "allowAudioAds": true,
-            "hasLyric": true
+            "hasLyric": true,
+            'path': '/mp3/bhdn.mp3'
         },
         {
             "encodeId": "ZWDAEADE",
@@ -660,7 +661,8 @@ export const ListSongDSP = {
             "allowAudioAds": true,
             "hasLyric": true,
             "zoneid": "272894159406723362",
-            "type": "nativeAd"
+            "type": "nativeAd",
+            'path': '/mp3/2h.mp3'
         },
         {
             "encodeId": "ZWCO0WU9",
@@ -737,7 +739,8 @@ export const ListSongDSP = {
             "mvlink": "/video-clip/Nguoi-Co-Thuong-DatKaa/ZWCO0WU9.html",
             "streamingStatus": 1,
             "allowAudioAds": true,
-            "hasLyric": true
+            "hasLyric": true,
+            'path': '/mp3/hcvn.mp3'
         },
         {
             "encodeId": "ZWB89DAI",
@@ -793,7 +796,8 @@ export const ListSongDSP = {
             "mvlink": "/video-clip/So-Rang-Em-Biet-Anh-Con-Yeu-Em-Special-Version-JUUN-D-Orange/ZWB89DAI.html",
             "streamingStatus": 1,
             "allowAudioAds": true,
-            "hasLyric": true
+            "hasLyric": true,
+            'path': '/mp3/heks.mp3'
         },
         {
             "encodeId": "ZWD88EWA",
@@ -894,7 +898,8 @@ export const ListSongDSP = {
             "isIndie": false,
             "streamingStatus": 1,
             "allowAudioAds": true,
-            "hasLyric": true
+            "hasLyric": true,
+            'path': '/mp3/bhdn.mp3'
         },
         {
             "encodeId": "ZWBO6CC9",
@@ -995,7 +1000,8 @@ export const ListSongDSP = {
             "mvlink": "/video-clip/Mua-Thang-Tu-VIET-ACV/ZWBO6CC9.html",
             "streamingStatus": 1,
             "allowAudioAds": true,
-            "hasLyric": true
+            "hasLyric": true,
+            'path': '/mp3/2h.mp3'
         },
         {
             "encodeId": "ZWBOEDB9",

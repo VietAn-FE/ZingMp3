@@ -9,11 +9,12 @@
 .barR {
     position: absolute;
     z-index: 0;
-    right: 0;
+    right: -330px;
     bottom: 0px;
     width: 330px;
     border-bottom: none;
     border-left: 1px solid var(--border-primary);
+    transition: all 0.3s ease-in-out;
     height: 100vh;
     &.hasPlayer{
         height: calc(100vh - 90px);

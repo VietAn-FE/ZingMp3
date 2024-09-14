@@ -2,7 +2,7 @@ import styles from './SettingHeader.module.scss'
 import DropdownTPN from './DropdownTPN'
 import DropdownGD from './DropdownGD'
 import { DropSeting } from '../../../../../constants/constants'
-import { useState } from 'react'
+import { memo, useState } from 'react'
 function MenuDropItem({ data }) {
     const [isShowDropdown, setIsShowDropdown] = useState(false)
 
@@ -34,4 +34,4 @@ function MenuDropItem({ data }) {
         </>
     )
 }
-export default MenuDropItem
+export default memo(MenuDropItem)

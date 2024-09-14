@@ -1,3 +1,4 @@
+import { memo } from 'react'
 import ToggleButton from '../../../../../components/Button/ToggleButton'
 import styles from './SettingHeader.module.scss'
 
@@ -20,4 +21,4 @@ function DropdownGD() {
         </div>
     )
 }
-export default DropdownGD
+export default memo(DropdownGD)

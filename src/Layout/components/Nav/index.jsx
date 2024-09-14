@@ -4,7 +4,7 @@ import ListNavSongUser from './components/ListNavSongUser'
 import styles from './Nav.module.scss'
 import { ListNavLeftMain, ListNavLeftSub, ListSongUser } from './constants'
 import useContextLogin from '../../../hook/useContextLogin'
-import { Fragment } from 'react'
+import { Fragment, memo } from 'react'
 import { Link } from 'react-router-dom'
 
 
@@ -78,4 +78,4 @@ function Navigation() {
     </div>
 }
 
-export default Navigation
+export default memo(Navigation)

@@ -3,6 +3,7 @@ import SearchBox from './components/SearchBox'
 import SettingHeader from './components/SettingHeader'
 import UserHeader from './components/UserHeader'
 import styles from './Header.module.scss'
+import { memo } from 'react'
 
 function Header() {
   
@@ -42,4 +43,4 @@ function Header() {
   )
 }
 
-export default Header
+export default memo(Header)

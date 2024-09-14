@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react'
+import { memo, useEffect, useRef, useState } from 'react'
 import styles from './SettingHeader.module.scss'
 import { ListSetting } from '../../constants';
 import MenuDropItem from './MenuDropItem';
@@ -44,4 +44,4 @@ function SettingHeader() {
     )
 }
 
-export default SettingHeader
+export default memo(SettingHeader)
